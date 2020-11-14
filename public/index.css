@@ -1,0 +1,28 @@
+.parseButton {
+  grid-area: parseButton;
+  height: 20px;
+}
+
+.mainArea {
+  grid-area: mainArea;
+}
+
+.sourceText {
+  width: 100%;
+  height: calc(100vh - 55px);
+  resize: none;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'parseButton'
+    'mainArea';
+  grid-gap: 5px;
+  padding: 5px;
+}
+
+.mdcode {
+  cursor:pointer;
+  background-color:lightblue;
+}
