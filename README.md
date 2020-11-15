@@ -1,11 +1,16 @@
 # CodePresent
-A simple tool to create a script for a presentation that contains code snippets. A simple textbox is presented
-where you paste simple text that supports a Markdown subset. You then click a button to format it. The main
-purpose is for code blocks that allow a single click to copy to the clipboard.
+When creating a screen-captured presentation with code snippets, I found that it takes too much time to click
+into another app and manually select and copy the code blocks to be pasted into the presentation. I wanted a
+tool that will copy a code block into the pastebuffer just by clicking it. I was unable to find something that
+would do this.
+
+So I created this simple web application to do that. To allow notes to be intermixed with the code blocks, I
+selected a markdown like syntax to define the document content. To make the parser simple, it only supports
+the few markdown features that I needed, and the syntax isn't very flexible.
 
 Only these Markdown features are supported: headings, paragraphs, code blocks, bold, italic.
 
-When first run, the initial text demonstrates all supported syntax.
+When first run, the initial sample text explains all supported syntax.
 
 
 ### Requirement:

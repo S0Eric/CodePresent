@@ -1,49 +1,71 @@
-import { error } from "console"
-import { Component } from "solid-js"
+import { Component, For } from "solid-js"
 import { Switch, Match } from "solid-js/dom"
-import { MdHeadingData, MdParagraphData, MdCodeBlockData, MdElementDataType } from "./markdownData"
+import { MdHeadingData, MdParagraphData, MdCodeBlockData, MdElementDataType, MdTextElementType, MdTextType } from "./markdownData"
 
-export const MdHeading: Component<{ data: MdHeadingData }> = props => (
-  <Switch fallback={<h6>{props.data.text}</h6>}>
+const MdTextList: Component<{ data: MdTextElementType[] }> = props => (
+  <>
+    <For each={props.data}>
+      {d => (
+        <Switch fallback={d.text}>
+          <Match when={d.type === MdTextType.BoldItalic}>
+            <strong><em>{d.text}</em></strong>
+          </Match>
+          <Match when={d.type === MdTextType.Bold}>
+            <strong>{d.text}</strong>
+          </Match>
+          <Match when={d.type === MdTextType.Italic}>
+            <em>{d.text}</em>
+          </Match>
+          <Match when={d.type === MdTextType.CodeBlock}>
+            <MdCodeBlock data={new MdCodeBlockData(d.text)} />
+          </Match>
+        </Switch>
+      )}
+    </For>
+  </>
+)
+
+const MdHeading: Component<{ data: MdHeadingData }> = props => (
+  <Switch fallback={<h6><MdTextList data={props.data.textList}/></h6>}>
     <Match when={props.data.level <= 1}>
-      <h1>{props.data.text}</h1>
+      <h1>{<MdTextList data={props.data.textList}/>}</h1>
     </Match>
     <Match when={props.data.level === 2}>
-      <h2>{props.data.text}</h2>
+      <h2>{<MdTextList data={props.data.textList}/>}</h2>
     </Match>
     <Match when={props.data.level === 3}>
-      <h3>{props.data.text}</h3>
+      <h3>{<MdTextList data={props.data.textList}/>}</h3>
     </Match>
     <Match when={props.data.level === 4}>
-      <h4>{props.data.text}</h4>
+      <h4>{<MdTextList data={props.data.textList}/>}</h4>
     </Match>
     <Match when={props.data.level === 5}>
-      <h5>{props.data.text}</h5>
+      <h5>{<MdTextList data={props.data.textList}/>}</h5>
     </Match>
   </Switch>  
 )
 
 export const MdParagraph: Component<{ data: MdParagraphData }> = props => (
-  <p>{props.data.text}</p>
+  <p>{<MdTextList data={props.data.textList}/>}</p>
 )
 
 export const MdCodeBlock: Component<{ data: MdCodeBlockData }> = props => {
-  // let codeElem: HTMLElement = undefined as unknown as HTMLTextAreaElement;
-  const doClick = (e: MouseEvent) => {
+  const doClick: (e: MouseEvent) => void = e => {
     if (window.getSelection && e.target) {
       const range = document.createRange();
-      const node = (e.target as Node).firstChild;
+      const node = e.target as HTMLElement;
       if (node) {
-        range.selectNode(node);
+        node.classList.add("mdcode-clicked");
+        setTimeout(() => node.classList.remove("mdcode-clicked"), 500);
+        const textNode = node.firstChild as Node;
+        range.selectNode(textNode);
         window.getSelection()?.addRange(range);
         document.execCommand("copy");
         window.getSelection()?.removeAllRanges();
       }
     }
   }
-  return (
-    <pre class="mdcode" onClick={doClick}>{props.data.text}</pre>
-  )
+  return <pre class="mdcode" onClick={doClick}>{props.data.text}</pre>
 }
 
 export const MdElement: Component<{ data: MdElementDataType }> = props => (

@@ -1,7 +1,7 @@
 {
   "name": "solidjstemplate",
   "version": "1.0.0",
-  "description": "A simple tool for formatting a presentation script where clicking a code block copies it to the clipboard.",
+  "description": "A simple tool for formatting a document containing notes and code blocks, where clicking a code block copies it to the clipboard.",
   "private": true,
   "scripts": {
     "start": "webpack-dev-server -d --mode=development",

@@ -1,5 +1,5 @@
-.parseButton {
-  grid-area: parseButton;
+.formatButton {
+  grid-area: formatButton;
   height: 20px;
 }
 
@@ -16,7 +16,7 @@
 .grid-container {
   display: grid;
   grid-template-areas:
-    'parseButton'
+    'formatButton'
     'mainArea';
   grid-gap: 5px;
   padding: 5px;
@@ -24,5 +24,10 @@
 
 .mdcode {
   cursor:pointer;
-  background-color:lightblue;
+  color: white;
+  background-color: black;
+}
+
+.mdcode-clicked {
+  background-color: darkgreen;
 }
