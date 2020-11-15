@@ -12,45 +12,60 @@ Only these Markdown features are supported: headings, paragraphs, code blocks, b
 
 When first run, the initial sample text explains all supported syntax.
 
+This web application doesn't save your document, so you shouldn't edit it in the application, but maintain a separate text file and paste the contents in when needed.
 
-### Requirement:
+### Requirements:
 - Node
-
+- http-server (optional - for serving a production version of the application)
 
 After cloning, run this command to download all dependencies:
-
 ```
-npm install
+> npm install
 ```
 
-### Project Commands:
+### To Serve a Production Build of the Application:
+
+Create a production build of the TypeScript source code, with Solid runtime.
+```
+> npm run build
+```
+
+To serve the application using the http-server Node web server, first install it globally by running this command once:
+```
+> npm install http-server -g
+```
+
+Then when you want to serve the application, run this command:
+```
+> http-server <path-to-project-folder>/public
+```
+
+Access the application here:
+[http://localhost:8080/](http://localhost:8080/)
+
+### Project Development Commands:
 
 To launch Webpack's development server (has hot loading):
-
 ```
-npm run start
+> npm run start
 ```
 
 To launch Webpack's development server (has hot loading) and open the web application in your default browser:
-
 ```
-npm run open
+> npm run open
 ```
 
 To compile the TypeScript source into public/ts-bundle.js (mode=development):
-
 ```
-npm run build-dev
+> npm run build-dev
 ```
 
 To compile the TypeScript source into public/ts-bundle.min.js (mode=production):
-
 ```
-npm run build
+> npm run build
 ```
 
 To watch the source folder and execute the build-dev script whenever a change is detected:
-
 ```
-npm run watch
+> npm run watch
 ```
